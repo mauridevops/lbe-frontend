@@ -261,12 +261,12 @@
 					await window.ethereum.request({
 						method: "wallet_addEthereumChain",
 						params: [{
-							chainId: this.test ? '0xA869' : "0xA86A",
+							chainId: this.test ? 97 : 97,
 							chainName: this.test ? 'BSC Testnet' : "BSC Testnet",
 							rpcUrls: [this.test ? ' https://data-seed-prebsc-1-s1.binance.org:8545' : ' https://data-seed-prebsc-1-s1.binance.org:8545'],
 							nativeCurrency: {
-								name: "AVAX",
-								symbol: "AVAX",
+								name: "BNB",
+								symbol: "BNB",
 								decimals: 18,
 							},
 							blockExplorerUrls: [this.test ? "https://testnet.bscscan.com/" : "https://testnet.bscscan.com/"],
