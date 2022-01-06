@@ -26,9 +26,9 @@
 				<div class="login">
 					<ul>
 						<div class="btn2" v-show="account">
-							<div class="hero-btn2">{{ mimBalanceRounded ? mimBalanceRounded : '0' }} MIM</div>
+							<div class="hero-btn2">{{ mimBalanceRounded ? mimBalanceRounded : '0' }} BUSD</div>
 							<div class="hero-btn2">{{ tinyAccount }}</div>
-							<a :href="'https://snowtrace.io/address/' + presale.address" target="_blank" class="hero-btn2">Presale Contract</a>
+							<a :href="'https://testnet.bscscan.com/address/' + presale.address" target="_blank" class="hero-btn2">Presale Contract</a>
 						</div>
 					</ul>
 				</div>
@@ -42,7 +42,7 @@
 					<p>A Knight approaches the Gate!</p>
 					<p>Lower the Drawbridge, and pull the Portcullis! You have proven your worth, Sir Knight; Vigilant, Steadfast, and True, you have built and grown with us.</p>
 					<p>The Fortress welcomes you, just as you have welcomed others.</p>
-					<p>Deposit your Magical Internet Money (MIM) into the Fortress vault. You will be able to claim and stake your <strong>$FORT</strong> at the beginning of our Grand Launch Ceremony.</p>
+					<p>Deposit your Binance USD (BUSD) into the Fortress vault. You will be able to claim and stake your <strong>$FORT</strong> at the beginning of our Grand Launch Ceremony.</p>
 					<p style="margin-bottom: 3rem;">Strength Together. Vires Simul.</p>
 					<!-- <p>Deposit your MIM in exchange for FORT tokens.<br>Your Tokens will be available for claim just after the LBE.<br></p> -->
 					<div class="text-center">
@@ -59,15 +59,15 @@
 							</div>
 							<div v-if="presale.isWhitelisted">
 								<div class="text-center" v-show="!mim.approved && presale.deposited <= 0">
-									<a class="hero-btn1 approve-btn" @click.prevent="approve"><span>Approve MIM</span> <img src="images/logo/mim2.ico" height="20" width="20"></a>
+									<a class="hero-btn1 approve-btn" @click.prevent="approve"><span>Approve BUSD</span> <img src="images/logo/mim2.ico" height="20" width="20"></a>
 								</div>
 								<div id="deposit-box" v-show="mim.approved && presale.amountBuyable > 0">
 									<div class="deposit-box-details">
-										<div>Max MIM: <a style="color:inherit;" href="#" @click.prevent="amountToDeposit = currentMaxPerAccountRounded">{{ currentMaxPerAccountRounded }}</a></div>
-										<div>Price: 5 MIM / FORT</div>
+										<div>Max BUSD: <a style="color:inherit;" href="#" @click.prevent="amountToDeposit = currentMaxPerAccountRounded">{{ currentMaxPerAccountRounded }}</a></div>
+										<div>Price: 5 BUSD / aDESTINY</div>
 									</div>
 									<div class="input-container">
-										<input type="number" step="1" min="0" :max="currentMaxPerAccountRounded" placeholder="MIM Amount" v-model.number="amountToDeposit"/>
+										<input type="number" step="1" min="0" :max="currentMaxPerAccountRounded" placeholder="BUSD Amount" v-model.number="amountToDeposit"/>
 										<a class="hero-btn" @click.prevent="deposit" :class="'deposit-btn ' + (amountToDeposit <= 0 ? 'disabled' : '')"><span>Deposit {{ amountToDeposit ? amountToDepositRounded : '0' }} MIM </span><img src="images/logo/mim2.ico" height="20" width="20"></a>
 									</div>
 								</div>
@@ -245,7 +245,7 @@
 				async connect () {
 					const chainId = await this.web3.eth.getChainId()
 
-					const requiredChainId = this.test ? 43113 : 43114;
+					const requiredChainId = this.test ? 97 : 97;
 
 					if (chainId != requiredChainId) {
 						this.switchChain()
@@ -262,14 +262,14 @@
 						method: "wallet_addEthereumChain",
 						params: [{
 							chainId: this.test ? '0xA869' : "0xA86A",
-							chainName: this.test ? 'Avalanche Fuji' : "Avalanche Network",
-							rpcUrls: [this.test ? 'https://api.avax-test.network/ext/bc/C/rpc' : 'https://api.avax.network/ext/bc/C/rpc'],
+							chainName: this.test ? 'BSC Testnet' : "BSC Testnet",
+							rpcUrls: [this.test ? ' https://data-seed-prebsc-1-s1.binance.org:8545' : ' https://data-seed-prebsc-1-s1.binance.org:8545'],
 							nativeCurrency: {
 								name: "AVAX",
 								symbol: "AVAX",
 								decimals: 18,
 							},
-							blockExplorerUrls: [this.test ? "https://testnet.snowtrace.io/" : "https://snowtrace.io/"],
+							blockExplorerUrls: [this.test ? "https://testnet.bscscan.com/" : "https://testnet.bscscan.com/"],
 						}],
 					});
 					this.connect()
@@ -410,7 +410,7 @@
 							params: [params],
 						})
 						.then((txHash) => {
-							this.setMessage(`Transaction sent: <a href="https://snowtrace.io/tx/${txHash}" target="_blank">view transaction</a>`, 0)
+							this.setMessage(`Transaction sent: <a href="https://testnet.bscscan.com/tx/${txHash}" target="_blank">view transaction</a>`, 0)
 
 							const wait = () => {
 								this.web3.eth.getTransaction(txHash).then((tx) => {
