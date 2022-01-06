@@ -141,10 +141,10 @@ nav{
 	display: inline-block;
 	text-decoration: none;
 	color: #fff;
-	border: 2px solid #53454e;
+	border: 2px solid #00112e;
 	padding: 12px 34px;
 	font-size: 13px;
-	background: #53454e;
+	background: #b78026;
 	position: relative;
 	cursor: pointer;
 	border-radius: 5px;
@@ -154,8 +154,8 @@ nav{
 	transition: .05s;
 	border-radius: 5px;
 	color: #fff;
-	border: 2px solid #41363d;
-	background: #41363d;
+	border: 2px solid #b78026;
+	background: #00112e;
 	font-size: 13px;
 }
 .hero-btn1{
