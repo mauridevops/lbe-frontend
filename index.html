@@ -39,21 +39,21 @@
 			<div class="text-box-wrapper">
 				<h1><img src="./images/1.1.png" alt="Fortress DAO" height="250" width="250"></h1>
 				<div class="text-box">
-					<p>A Knight approaches the Gate!</p>
-					<p>Lower the Drawbridge, and pull the Portcullis! You have proven your worth, Sir Knight; Vigilant, Steadfast, and True, you have built and grown with us.</p>
-					<p>The Fortress welcomes you, just as you have welcomed others.</p>
-					<p>Deposit your Binance USD (BUSD) into the Fortress vault. You will be able to claim and stake your <strong>$FORT</strong> at the beginning of our Grand Launch Ceremony.</p>
-					<p style="margin-bottom: 3rem;">Strength Together. Vires Simul.</p>
+					<p>You are approaching the Gate!</p>
+					<p>Ninth chevron locked! You have proven your worth; Vigilant, Steadfast, and True, you have built and grown with us.</p>
+					<p>The Destiny welcomes you, just as you have welcomed others.</p>
+					<p>Deposit your Binance USD (BUSD) into the Destiny vault. You will be able to claim and stake your <strong>$SGU</strong> at the beginning of our Grand Launch Ceremony.</p>
+					<p style="margin-bottom: 3rem;">Strength Together. - Destiny's Pilot.</p>
 					<!-- <p>Deposit your MIM in exchange for FORT tokens.<br>Your Tokens will be available for claim just after the LBE.<br></p> -->
 					<div class="text-center">
 						<a class="hero-btn2 connect-btn" @click.prevent="connect" v-if="!account">Connect to MetaMask</a>	
 					</div>
 					<div v-if="account" class="wrapper">
 						<div v-if="loading" class="loader">
-							Loading, please wait...
+							Dialing, please wait...
 						</div>
 						<div v-else>
-							<div class="progress-text">Amount sold: {{ amountSoldRounded }} / {{ presale.maxSold }} FORT</div>
+							<div class="progress-text">Amount sold: {{ amountSoldRounded }} / {{ presale.maxSold }} SGU</div>
 							<div class="progress">
 								<div class="progress-value" :style="{ width: (presale.sold / presale.maxSold * 100) + '%' }"></div>
 							</div>
@@ -64,7 +64,7 @@
 								<div id="deposit-box" v-show="mim.approved && presale.amountBuyable > 0">
 									<div class="deposit-box-details">
 										<div>Max BUSD: <a style="color:inherit;" href="#" @click.prevent="amountToDeposit = currentMaxPerAccountRounded">{{ currentMaxPerAccountRounded }}</a></div>
-										<div>Price: 5 BUSD / aDESTINY</div>
+										<div>Price: 5 BUSD / SGU</div>
 									</div>
 									<div class="input-container">
 										<input type="number" step="1" min="0" :max="currentMaxPerAccountRounded" placeholder="BUSD Amount" v-model.number="amountToDeposit"/>
@@ -87,10 +87,10 @@
 							</div>
 							<div v-if="presale.deposited > 0">
 								<div v-if="presale.fortAddress != '0x0000000000000000000000000000000000000000'" class="text-center claim-container">
-									<a class="hero-btn" href="#" @click.prevent="claim">Claim {{ Math.round(presale.deposited * 100) / 100 }} FORT</a>
+									<a class="hero-btn" href="#" @click.prevent="claim">Claim {{ Math.round(presale.deposited * 100) / 100 }} SGU</a>
 								</div>
 								<div v-else class="text-center claim-container">
-									<a class="hero-btn disabled" href="#" title="Your Tokens will be available for claim just after the LBE." @click.prevent>Claim {{ Math.round(presale.deposited * 100) / 100 }} FORT</a>
+									<a class="hero-btn disabled" href="#" title="Your Tokens will be available for claim just after the LBE." @click.prevent>Claim {{ Math.round(presale.deposited * 100) / 100 }} SGU</a>
 								</div>
 							</div>
 						</div>
