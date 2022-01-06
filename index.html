@@ -261,9 +261,9 @@
 					await window.ethereum.request({
 						method: "wallet_addEthereumChain",
 						params: [{
-							chainId: this.test ? 97 : 97,
+							chainId: this.test ? '0x61' : "0x61",
 							chainName: this.test ? 'BSC Testnet' : "BSC Testnet",
-							rpcUrls: [this.test ? ' https://data-seed-prebsc-1-s1.binance.org:8545' : ' https://data-seed-prebsc-1-s1.binance.org:8545'],
+							rpcUrls: [this.test ? 'https://data-seed-prebsc-2-s2.binance.org:8545' : 'https://data-seed-prebsc-2-s2.binance.org:8545'],
 							nativeCurrency: {
 								name: "BNB",
 								symbol: "BNB",
