@@ -44,7 +44,7 @@
 					<p>The Destiny welcomes you, just as you have welcomed others.</p>
 					<p>Deposit your Binance USD (BUSD) into the Destiny's vault. You will be able to claim and stake your <strong>$DESTINY</strong> at the beginning of our Launch Event.</p>
 					<p style="margin-bottom: 3rem;"> 3,3 Together.</p>
-					<!-- <p>Deposit your MIM in exchange for FORT tokens.<br>Your Tokens will be available for claim just after the LBE.<br></p> -->
+					<!-- <p>Deposit your MIM in exchange for FORT tokens.<br>Your Tokens will be available for claim just after the PRESALE.<br></p> -->
 					<div class="text-center">
 						<a class="hero-btn2 connect-btn" @click.prevent="connect" v-if="!account">Connect to MetaMask</a>	
 					</div>
@@ -68,13 +68,13 @@
 									</div>
 									<div class="input-container">
 										<input type="number" step="1" min="0" :max="currentMaxPerAccountRounded" placeholder="BUSD Amount" v-model.number="amountToDeposit"/>
-										<a class="hero-btn" @click.prevent="deposit" :class="'deposit-btn ' + (amountToDeposit <= 0 ? 'disabled' : '')"><span>Deposit {{ amountToDeposit ? amountToDepositRounded : '0' }} MIM </span><img src="images/logo/mim2.ico" height="20" width="20"></a>
+										<a class="hero-btn" @click.prevent="deposit" :class="'deposit-btn ' + (amountToDeposit <= 0 ? 'disabled' : '')"><span>Deposit {{ amountToDeposit ? amountToDepositRounded : '0' }} BUSD </span><img src="images/logo/busd.png" height="20" width="20"></a>
 									</div>
 								</div>
 							</div>
 							<div v-else-if="!presale.isWhitelisted">
 								<div class="errors">
-									The LBE is not open to the public.
+									The PRESALE is not open to the public.
 								</div>
 							</div>
 							<div v-else>
@@ -90,7 +90,7 @@
 									<a class="hero-btn" href="#" @click.prevent="claim">Claim {{ Math.round(presale.deposited * 100) / 100 }} DESTINY</a>
 								</div>
 								<div v-else class="text-center claim-container">
-									<a class="hero-btn disabled" href="#" title="Your Tokens will be available for claim just after the LBE." @click.prevent>Claim {{ Math.round(presale.deposited * 100) / 100 }} DESTINY</a>
+									<a class="hero-btn disabled" href="#" title="Your Tokens will be available for claim just after the PRESALE." @click.prevent>Claim {{ Math.round(presale.deposited * 100) / 100 }} DESTINY</a>
 								</div>
 							</div>
 						</div>
