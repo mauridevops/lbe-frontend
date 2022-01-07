@@ -87,7 +87,7 @@
 							</div>
 							<div v-if="presale.deposited > 0">
 								<div v-if="presale.fortAddress != '0x0000000000000000000000000000000000000000'" class="text-center claim-container">
-									<a class="hero-btn" href="#" @click.prevent="claim">Claim {{ Math.round(presale.deposited * 100) / 100 }} DESTINY</a>
+									<a class="hero-btn" href="#" @click.prevent="claim">Claim {{ Math.round(presale.deposited * 100) / 100 }} $DESTINY</a>
 								</div>
 								<div v-else class="text-center claim-container">
 									<a class="hero-btn disabled" href="#" title="Your Tokens will be available for claim just after the PRESALE." @click.prevent>Claim {{ Math.round(presale.deposited * 100) / 100 }} DESTINY</a>
