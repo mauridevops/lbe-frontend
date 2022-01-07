@@ -50,7 +50,7 @@
 					</div>
 					<div v-if="account" class="wrapper">
 						<div v-if="loading" class="loader">
-							Dialing, please wait...
+							Loading, please wait...
 						</div>
 						<div v-else>
 							<div class="progress-text">Amount sold: {{ amountSoldRounded }} / {{ presale.maxSold }} DESTINY</div>
@@ -63,7 +63,7 @@
 								</div>
 								<div id="deposit-box" v-show="mim.approved && presale.amountBuyable > 0">
 									<div class="deposit-box-details">
-										<div>Max BUSD: <a style="color:inherit;" href="#" @click.prevent="amountToDeposit = currentMaxPerAccountRounded">{{ currentMaxPerAccountRounded }}</a></div>
+										<div>Max BUSD remaining you can buy: <a style="color:inherit;" href="#" @click.prevent="amountToDeposit = currentMaxPerAccountRounded">{{ currentMaxPerAccountRounded }}</a></div>
 										<div>Price: 5 BUSD / DESTINY</div>
 									</div>
 									<div class="input-container">
