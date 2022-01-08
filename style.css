@@ -467,3 +467,7 @@ a.disabled {
 		height: 30%;
 	}
 }
+#play-pause-button{
+	font-size: 50px;
+	cursor: pointer;
+  }
