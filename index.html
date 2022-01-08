@@ -18,7 +18,7 @@
 	<div id="app" v-cloak>
 		<div id="video-container">
 			<video poster="./images/1111.png" autoplay muted loop id="video">
-				<source src="./images/looped.mp4" type="video/mp4"/>
+				<source src="https://www.youtube.com/watch?v=qrs6PPQznaA" type="video/mp4"/>
 			</video>
 		</div>
 		<section class="header" id="home">
@@ -37,7 +37,7 @@
 		
 
 			<div class="text-box-wrapper">
-				<h1><img src="./images/1.1.png" alt="Fortress DAO" height="250" width="250"></h1>
+				<h1><img src="./images/1.1.png" alt="Destiny DAO" height="250" width="250"></h1>
 				<div class="text-box">
 					<p>You are approaching the Gate!</p>
 					<p>Ninth chevron locked! You have proven your worth; Vigilant, Steadfast, and True, you have built and grown with us.</p>
@@ -64,7 +64,7 @@
 								<div id="deposit-box" v-show="mim.approved && presale.amountBuyable > 0">
 									<div class="deposit-box-details">
 										<div>Max BUSD remaining you can buy: <a style="color:inherit;" href="#" @click.prevent="amountToDeposit = currentMaxPerAccountRounded">{{ currentMaxPerAccountRounded }}</a></div>
-										<div>Price: 5 BUSD / DESTINY</div>
+										<div>Price: 7 BUSD / DESTINY</div>
 									</div>
 									<div class="input-container">
 										<input type="number" step="1" min="0" :max="currentMaxPerAccountRounded" placeholder="BUSD Amount" v-model.number="amountToDeposit"/>
