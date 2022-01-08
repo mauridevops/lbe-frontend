@@ -21,6 +21,7 @@
 				<source src="./images/looped.mp4" type="video/mp4"/>
 			</video>
 		</div>
+
 		<section class="header" id="home">
 			<nav>
 				<div class="login">
@@ -39,10 +40,11 @@
 			<div class="text-box-wrapper">
 				<h1><img src="./images/1.1.png" alt="Destiny DAO" height="250" width="250"></h1>
 				<div class="text-box">
-					<p>You are approaching the Gate!</p>
+					<p>You are approaching the Gate...</p>
 					<p>Ninth chevron locked! You have proven your worth; Vigilant, Steadfast, and True, you have built and grown with us.</p>
 					<p>The Destiny welcomes you, just as you have welcomed others.</p>
 					<p>Deposit your Binance USD (BUSD) into the Destiny's vault. You will be able to claim and stake your <strong>$DESTINY</strong> at the beginning of our Launch Event.</p>
+					<a id="play-pause-button" class="fa fa-play"></a>
 					<p style="margin-bottom: 3rem;"> 3,3 Together.</p>
 					<!-- <p>Deposit your MIM in exchange for FORT tokens.<br>Your Tokens will be available for claim just after the PRESALE.<br></p> -->
 					<div class="text-center">
@@ -102,7 +104,29 @@
 		<div id="errors" v-show="error" v-html="error"></div>
 		<div id="success" v-show="success" v-html="success"></div>
 	</div>
+    <script>
+    var audio = new Audio("./images/audio.mp3");
 
+$('#play-pause-button').on("click",function(){
+  if($(this).hasClass('fa-play'))
+   {
+     $(this).removeClass('fa-play');
+     $(this).addClass('fa-pause');
+     audio.play();
+   }
+  else
+   {
+     $(this).removeClass('fa-pause');
+     $(this).addClass('fa-play');
+     audio.pause();
+   }
+});
+
+audio.onended = function() {
+     $("#play-pause-button").removeClass('fa-pause');
+     $("#play-pause-button").addClass('fa-play');
+};
+    </script>
 	<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 	<script>
 		if (($(document).width() / $(document).height()) < (16 / 9)) {
