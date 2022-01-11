@@ -350,11 +350,11 @@ audio.onended = function() {
 					const value = await this.busd.contract.methods.balanceOf(this.account).call()
 					Vue.set(this.busd, 'balance', this.applyDecimals(value, this.busd.decimals))
 				},
-				async fetchDeposited () {
+				/*async fetchDeposited () {
 					const newValue = await this.presale.contract.methods.invested(this.account).call()
 					const value = Math.max(oldValue, newValue);
 					Vue.set(this.presale, 'deposited', this.applyDecimals(value, this.ftlDecimals))
-				},
+				},*/
 				toBN (val) {
 					return new BigNumber(val)
 				},
