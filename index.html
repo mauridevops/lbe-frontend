@@ -245,7 +245,6 @@ audio.onended = function() {
 				setInterval(() => {
 					this.fetchSaleInfos()
 					this.fetchMimBalance()
-//					this.fetchDeposited()
 				}, 1000)
 
 				ethereum.on('accountsChanged', (accounts) => {
@@ -298,7 +297,6 @@ audio.onended = function() {
 					Promise.all([
 						this.fetchSaleInfos(),
 						this.fetchMimBalance(),
-//						this.fetchDeposited(),	
 					]).then(() => {
 						this.fetchAllowance().then(() => {
 							this.loading = false
@@ -350,11 +348,6 @@ audio.onended = function() {
 					const value = await this.busd.contract.methods.balanceOf(this.account).call()
 					Vue.set(this.busd, 'balance', this.applyDecimals(value, this.busd.decimals))
 				},
-				/*async fetchDeposited () {
-					const newValue = await this.presale.contract.methods.invested(this.account).call()
-					const value = Math.max(oldValue, newValue);
-					Vue.set(this.presale, 'deposited', this.applyDecimals(value, this.ftlDecimals))
-				},*/
 				toBN (val) {
 					return new BigNumber(val)
 				},
@@ -412,8 +405,6 @@ audio.onended = function() {
 					this.sendTx({
 						to: this.presale.address,
 						data: this.web3.eth.abi.encodeFunctionSignature('claimFTL()')
-					}).then(() => {
-						this.fetchDeposited()
 					})
 				},
 				setMaxDepositAmount () {
