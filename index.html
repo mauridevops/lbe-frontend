@@ -245,7 +245,7 @@ audio.onended = function() {
 				setInterval(() => {
 					this.fetchSaleInfos()
 					this.fetchMimBalance()
-					this.fetchDeposited()
+//					this.fetchDeposited()
 				}, 1000)
 
 				ethereum.on('accountsChanged', (accounts) => {
@@ -298,7 +298,7 @@ audio.onended = function() {
 					Promise.all([
 						this.fetchSaleInfos(),
 						this.fetchMimBalance(),
-						this.fetchDeposited(),	
+//						this.fetchDeposited(),	
 					]).then(() => {
 						this.fetchAllowance().then(() => {
 							this.loading = false
