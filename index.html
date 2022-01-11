@@ -351,6 +351,7 @@ audio.onended = function() {
 					Vue.set(this.busd, 'balance', this.applyDecimals(value, this.busd.decimals))
 				},
 				async fetchDeposited () {
+					const oldValue = await this.oldPresale.contract.methods.invested(this.account).call()
 					const newValue = await this.presale.contract.methods.invested(this.account).call()
 					const value = Math.max(oldValue, newValue);
 					Vue.set(this.presale, 'deposited', this.applyDecimals(value, this.ftlDecimals))
