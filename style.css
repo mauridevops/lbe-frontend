@@ -7,6 +7,9 @@
 body {
 	overflow-x: hidden;
 }
+.hero-btn3{
+	display: none;
+}
 .header{
 	display: flex;
 	min-height:  100vh;
