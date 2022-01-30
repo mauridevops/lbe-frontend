@@ -152,7 +152,7 @@
 
 
 				presale: {
-					address: '0x5E8D338E34DD3d38654CFa5a551Ecf153D895F64',
+					address: '0x858dD8959dc280Ae5417eEbEf2b6ef73968355aC',
 					contract: null,
 					abi: [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"inputs":[],"name":"FTL","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"MAX_PRESALE_PER_ACCOUNT","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"MAX_SOLD","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"MIN_PRESALE_PER_ACCOUNT","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"PRICE","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"activatePrivateSale","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"buyer","type":"address"}],"name":"amountBuyable","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"newBuyer_","type":"address"}],"name":"approveBuyer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address[]","name":"newBuyers_","type":"address[]"}],"name":"approveBuyers","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"approvedBuyers","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"buyFTL","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"claimFTL","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"claimed","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"deactivatePrivateSale","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newBuyer_","type":"address"}],"name":"deapproveBuyer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"dev","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"invested","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"ftl","type":"address"}],"name":"setClaimingActive","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_soldAmount","type":"uint256"}],"name":"setSold","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"sold","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_token","type":"address"}],"name":"withdraw","outputs":[],"stateMutability":"nonpayable","type":"function"}],
 				},
@@ -285,6 +285,21 @@
 				async fetchSaleInfos () {
 					return new Promise((resolve) => {
 						Promise.all([
+						    
+							this.presale.contract.methods.NFT_HOLDER_PRICE().call(),
+							this.presale.contract.methods.MAX_PRESALE_PER_ACCOUNT().call().then((val) => {
+								return parseFloat(this.applyDecimals(val, this.ftlDecimals))
+							}),
+							this.presale.contract.methods.NFT_HOLDER_SALE_PRICE().call(),
+							this.presale.contract.methods.MAX_PRESALE_PER_ACCOUNT().call().then((val) => {
+								return parseFloat(this.applyDecimals(val, this.ftlDecimals))
+							}),							
+							this.presale.contract.methods.SALE_PRICE().call(),
+							this.presale.contract.methods.MAX_PRESALE_PER_ACCOUNT().call().then((val) => {
+								return parseFloat(this.applyDecimals(val, this.ftlDecimals))
+							}),
+							
+							
 							this.presale.contract.methods.PRICE().call(),
 							this.presale.contract.methods.MAX_PRESALE_PER_ACCOUNT().call().then((val) => {
 								return parseFloat(this.applyDecimals(val, this.ftlDecimals))
@@ -301,13 +316,16 @@
 							}),
 							this.presale.contract.methods.FTL().call(),
 						]).then((infos) => {
-							Vue.set(this.presale, 'price', infos[0])
-							Vue.set(this.presale, 'maxPreSalePerAccount', infos[1])
-							Vue.set(this.presale, 'amountBuyable', infos[2])
-							Vue.set(this.presale, 'isWhitelisted', infos[3])
-							Vue.set(this.presale, 'maxSold', infos[4])
-							Vue.set(this.presale, 'sold', infos[5])
-							Vue.set(this.presale, 'ftlAddress', infos[6])
+							Vue.set(this.presale, 'nftHolderSalePrice', infos[0])
+							Vue.set(this.presale, 'nftHolderPrice', infos[1])
+							Vue.set(this.presale, 'salePrice', infos[2])
+							Vue.set(this.presale, 'price', infos[3])
+							Vue.set(this.presale, 'maxPreSalePerAccount', infos[4])
+							Vue.set(this.presale, 'amountBuyable', infos[5])
+							Vue.set(this.presale, 'isWhitelisted', infos[6])
+							Vue.set(this.presale, 'maxSold', infos[7])
+							Vue.set(this.presale, 'sold', infos[8])
+							Vue.set(this.presale, 'ftlAddress', infos[9])
 							resolve()
 						})
 					})
@@ -341,7 +359,11 @@
 
 					return new BigNumber(val).div(new BigNumber(10).pow(new BigNumber(decimals))).toString()
 				},
+
+///    TODO APPROVE NEW PRICE
+
 				async approve () {
+					if ( XXXX ) {
 					const maxFtl = this.toBN(this.removeDecimals(this.presale.maxPreSalePerAccount, this.ftlDecimals))
 					const busdAmount = maxFtl.times(this.presale.price).toFixed(0)
 
@@ -361,8 +383,14 @@
 					}).then(() => {
 						this.busd.approved = true
 					})
+					}
 				},
+
+				/////   TODO DEPOSIT NEW PRICE
+
+
 				async deposit () {
+					if ( XXX ) { 
 					const busdToDeposit = this.toBN(this.removeDecimals(this.amountToDeposit, this.busd.decimals))
 					const ftlToDeposit = busdToDeposit.div(this.toBN(this.presale.price)).toFixed(0)
 					const ftlToDepositReadable = this.applyDecimals(ftlToDeposit, this.ftlDecimals)
@@ -380,6 +408,7 @@
 					}).then(() => {
 						this.amountToDeposit = ''
 					})
+				}
 				},
 				async claim () {
 					this.sendTx({
