@@ -179,8 +179,6 @@
 
 				/// TODO
     			 // nft count
-
-				
 				currentMaxPerAccount () {
 					if (getNftHolderCount().call >= 1 && isPresale()){
 					const price = this.toBN(this.presale.nftHolderPrice)
@@ -349,10 +347,8 @@
 						})
 					})
 				},
-				async fetchSold () {
-					this.presale.contract.methods.sold().call().then((sold) => {
-						Vue.set(this.presale, 'sold', parseFloat(this.applyDecimals(sold, this.ftlDecimals)))
-					})
+				async getNftHolderCount() {
+				await window.ethereum.enable();
 				},
 				async fetchSaleInfos () {
 					return new Promise((resolve) => {
