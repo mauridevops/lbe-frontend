@@ -126,14 +126,6 @@
 			}
 		})
 
-
-		let tokenAddress = "0xce9aB6efE22dAf7182bC3d8fCAbC9f2Bd00f60Be";
-		let walletAddress = [msg.sender];
-			async function getBalance() {
-				balance = await contract.methods.balanceOf(walletAddress).call();
-  				return balance;
-			}
-
 		var vm = new Vue({
 			el: '#app',
 			data: {
@@ -190,7 +182,7 @@
 
 				
 				currentMaxPerAccount () {
-					if (getBalance() >= 1 && isPresale()){
+					if (getNftHolderCount().call >= 1 && isPresale()){
 					const price = this.toBN(this.presale.nftHolderPrice)
 					const max = this.toBN(this.presale.maxPreSalePerAccount)
 
@@ -209,7 +201,7 @@
 
 					return max.times(price).div(busdPow.div(ftlPow)).toNumber()
 				}
-				else if (getBalance() < 1 && isPresale()) {
+				else if (getNftHolderCount().call < 1 && isPresale()) {
 					const price = this.toBN(this.presale.price)
 					const max = this.toBN(this.presale.maxPreSalePerAccount)
 
@@ -228,7 +220,7 @@
 
 					return max.times(price).div(busdPow.div(ftlPow)).toNumber()
 				}
-				else if (getBalance() >= 1 && isPublicSale()) {
+				else if (getNftHolderCount().call >= 1 && isPublicSale()) {
 					const price = this.toBN(this.presale.nftHolderSalePrice)
 					const max = this.toBN(this.presale.maxPreSalePerAccount)
 
@@ -247,7 +239,7 @@
 
 					return max.times(price).div(busdPow.div(ftlPow)).toNumber()
 				}
-				else if (getBalance() < 1 && isPublicSale()) {
+				else if (getNftHolderCount().call < 1 && isPublicSale()) {
 					const price = this.toBN(this.presale.salePrice)
 					const max = this.toBN(this.presale.maxPreSalePerAccount)
 
@@ -411,25 +403,25 @@
 
 				//TODO NEWS PRICES
 				async fetchAllowance () {
-					if (getBalance() >= 1 && isPresale()){
+					if (getNftHolderCount().call >= 1 && isPresale()){
 					const buyableFtl = this.toBN(this.removeDecimals(this.presale.amountBuyable, this.ftlDecimals))
 					const mustBeApproved = buyableFtl.times(this.presale.nftHolderPrice)
 					const approved = await this.busd.contract.methods.allowance(this.account, this.presale.address).call()
 					this.busd.approved = this.toBN(approved).gte(mustBeApproved)
 				}
-				else if (getBalance() < 1 && isPresale()){
+				else if (getNftHolderCount().call < 1 && isPresale()){
 					const buyableFtl = this.toBN(this.removeDecimals(this.presale.amountBuyable, this.ftlDecimals))
 					const mustBeApproved = buyableFtl.times(this.presale.price)
 					const approved = await this.busd.contract.methods.allowance(this.account, this.presale.address).call()
 					this.busd.approved = this.toBN(approved).gte(mustBeApproved)
 				}
-				else if (getBalance() >= 1 && isPublicSale()){
+				else if (getNftHolderCount().call >= 1 && isPublicSale()){
 					const buyableFtl = this.toBN(this.removeDecimals(this.presale.amountBuyable, this.ftlDecimals))
 					const mustBeApproved = buyableFtl.times(this.presale.nftHolderSalePrice)
 					const approved = await this.busd.contract.methods.allowance(this.account, this.presale.address).call()
 					this.busd.approved = this.toBN(approved).gte(mustBeApproved)					
 				}
-				else if (getBalance() < 1 && isPublicSale()){
+				else if (getNftHolderCount().call < 1 && isPublicSale()){
 					const buyableFtl = this.toBN(this.removeDecimals(this.presale.amountBuyable, this.ftlDecimals))
 					const mustBeApproved = buyableFtl.times(this.presale.salePrice)
 					const approved = await this.busd.contract.methods.allowance(this.account, this.presale.address).call()
@@ -465,7 +457,7 @@
 ///    TODO APPROVE NEW PRICE
 
 				async approve () {
-					if ( getBalance() >= 1 && isPresale() ) {
+					if ( getNftHolderCount().call >= 1 && isPresale() ) {
 					const maxFtl = this.toBN(this.removeDecimals(this.presale.maxPreSalePerAccount, this.ftlDecimals))
 					const busdAmount = maxFtl.times(this.presale.nftHolderPrice).toFixed(0)
 
@@ -486,7 +478,7 @@
 						this.busd.approved = true
 					})
 					}
-					else if ( getBalance() < 1 && isPresale() ) {
+					else if ( getNftHolderCount().call < 1 && isPresale() ) {
 					const maxFtl = this.toBN(this.removeDecimals(this.presale.maxPreSalePerAccount, this.ftlDecimals))
 					const busdAmount = maxFtl.times(this.presale.price).toFixed(0)
 
@@ -507,7 +499,7 @@
 						this.busd.approved = true
 					})
 					}
-					else if ( getBalance() >= 1 && isPublicSale() ) {
+					else if ( getNftHolderCount().call >= 1 && isPublicSale() ) {
 					const maxFtl = this.toBN(this.removeDecimals(this.presale.maxPreSalePerAccount, this.ftlDecimals))
 					const busdAmount = maxFtl.times(this.presale.nftHolderSalePrice).toFixed(0)
 
@@ -528,7 +520,7 @@
 						this.busd.approved = true
 					})
 					}
-					else if ( getBalance() < 1 && isPublicSale() ) {
+					else if ( getNftHolderCount().call < 1 && isPublicSale() ) {
 					const maxFtl = this.toBN(this.removeDecimals(this.presale.maxPreSalePerAccount, this.ftlDecimals))
 					const busdAmount = maxFtl.times(this.presale.salePrice).toFixed(0)
 
@@ -555,7 +547,7 @@
 
 
 				async deposit () {
-					if ( getBalance() >= 1 && isPresale() ) { 
+					if ( getNftHolderCount().call >= 1 && isPresale() ) { 
 					const busdToDeposit = this.toBN(this.removeDecimals(this.amountToDeposit, this.busd.decimals))
 					const ftlToDeposit = busdToDeposit.div(this.toBN(this.presale.nftHolderPrice)).toFixed(0)
 					const ftlToDepositReadable = this.applyDecimals(ftlToDeposit, this.ftlDecimals)
@@ -574,7 +566,7 @@
 						this.amountToDeposit = ''
 					})
 				} 
-				else if (getBalance() < 1 && isPresale()) {
+				else if (getNftHolderCount().call < 1 && isPresale()) {
 					const busdToDeposit = this.toBN(this.removeDecimals(this.amountToDeposit, this.busd.decimals))
 					const ftlToDeposit = busdToDeposit.div(this.toBN(this.presale.price)).toFixed(0)
 					const ftlToDepositReadable = this.applyDecimals(ftlToDeposit, this.ftlDecimals)
@@ -593,7 +585,7 @@
 						this.amountToDeposit = ''
 					})
 				}
-				else if (getBalance() >= 1 && isPublicSale()) {
+				else if (getNftHolderCount().call >= 1 && isPublicSale()) {
 					const busdToDeposit = this.toBN(this.removeDecimals(this.amountToDeposit, this.busd.decimals))
 					const ftlToDeposit = busdToDeposit.div(this.toBN(this.presale.nftHolderSalePrice)).toFixed(0)
 					const ftlToDepositReadable = this.applyDecimals(ftlToDeposit, this.ftlDecimals)
@@ -612,7 +604,7 @@
 						this.amountToDeposit = ''
 					})
 				}
-				else if (getBalance() < 1 && isPublicSale()){
+				else if (getNftHolderCount().call < 1 && isPublicSale()){
 					const busdToDeposit = this.toBN(this.removeDecimals(this.amountToDeposit, this.busd.decimals))
 					const ftlToDeposit = busdToDeposit.div(this.toBN(this.presale.salePrice)).toFixed(0)
 					const ftlToDepositReadable = this.applyDecimals(ftlToDeposit, this.ftlDecimals)
