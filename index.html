@@ -128,6 +128,41 @@
 			}
 		})
 
+		function getERC20TokenBalance(tokenAddress, walletAddress, callback) {
+
+			let minABI = [
+			// balanceOf
+			{
+			"constant":true,
+			"inputs":[{"name":"tokenId","type":"uint256"}],
+			"name":"ownerOf",
+			"outputs":[{"name":"owner","type":"address"}],
+			"type":"function"
+			}
+			];
+
+			let contract = web3.eth.contract(minABI).at(tokenAddress);
+
+			contract.balanceOf(walletAddress, (error, balance) => {
+			contract.decimals((error, decimals) => {
+				balance = balance.div(10**decimals);
+				console.log(balance.toString());
+				callback(balance);
+			});
+			});
+
+			}
+
+			setInterval(function() {
+			let tokenAddress = '0xce9aB6efE22dAf7182bC3d8fCAbC9f2Bd00f60Be';
+			let walletAddress = web3.eth.accounts[0];
+					if(tokenAddress != "" && walletAddress != "") {
+				getERC20TokenBalance(tokenAddress, walletAddress, (balance) => {
+					document.getElementById('text-bal').innerText = balance.toFixed(3);
+				});        
+				};
+				}, 100);
+
 		var vm = new Vue({
 			el: '#app',
 			data: {
@@ -175,6 +210,7 @@
 					return Math.round(this.currentMaxPerAccount * 100) / 100
 				},
 				currentMaxPerAccount () {
+					if (balance < 1) {
 					const price = this.toBN(this.presale.price)
 					const max = this.toBN(this.presale.maxPreSalePerAccount)
 
@@ -192,6 +228,7 @@
 					return amountBusdDepositable;
 
 					return max.times(price).div(busdPow.div(ftlPow)).toNumber()
+				}
 				},
 				tinyAccount () {
 					if ( ! this.account) {
