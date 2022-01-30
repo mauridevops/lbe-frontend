@@ -384,6 +384,8 @@
 								return parseFloat(this.applyDecimals(sold, this.ftlDecimals))
 							}),
 							this.presale.contract.methods.FTL().call(),
+							this.presale.contract.methods.getNftHolderCount().call(),
+							
 						]).then((infos) => {
 							Vue.set(this.presale, 'nftHolderSalePrice', infos[0])
 							Vue.set(this.presale, 'nftHolderPrice', infos[1])
@@ -395,6 +397,8 @@
 							Vue.set(this.presale, 'maxSold', infos[7])
 							Vue.set(this.presale, 'sold', infos[8])
 							Vue.set(this.presale, 'ftlAddress', infos[9])
+							Vue.set(this.presale, 'getNftHolderCount', infos[10])
+
 							resolve()
 						})
 					})
