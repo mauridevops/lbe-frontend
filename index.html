@@ -153,7 +153,404 @@
 				presale: {
 					address: '0x858dD8959dc280Ae5417eEbEf2b6ef73968355aC',
 					contract: null,
-					abi: [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"inputs":[],"name":"FTL","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"MAX_PRESALE_PER_ACCOUNT","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"MAX_SOLD","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"MIN_PRESALE_PER_ACCOUNT","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"PRICE","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"activatePrivateSale","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"buyer","type":"address"}],"name":"amountBuyable","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"newBuyer_","type":"address"}],"name":"approveBuyer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address[]","name":"newBuyers_","type":"address[]"}],"name":"approveBuyers","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"approvedBuyers","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"buyFTL","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"claimFTL","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"claimed","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"deactivatePrivateSale","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newBuyer_","type":"address"}],"name":"deapproveBuyer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"dev","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"invested","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"ftl","type":"address"}],"name":"setClaimingActive","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_soldAmount","type":"uint256"}],"name":"setSold","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"sold","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_token","type":"address"}],"name":"withdraw","outputs":[],"stateMutability":"nonpayable","type":"function"}],
+					abi: [
+							{
+								"inputs": [
+								{
+									"internalType": "address",
+									"name": "_dev",
+									"type": "address"
+								},
+								{
+									"internalType": "uint256",
+									"name": "_presaleTimestamp",
+									"type": "uint256"
+								},
+								{
+									"internalType": "address",
+									"name": "busd_address",
+									"type": "address"
+								}
+								],
+								"stateMutability": "nonpayable",
+								"type": "constructor"
+							},
+							{
+								"anonymous": false,
+								"inputs": [
+								{
+									"indexed": true,
+									"internalType": "address",
+									"name": "previousOwner",
+									"type": "address"
+								},
+								{
+									"indexed": true,
+									"internalType": "address",
+									"name": "newOwner",
+									"type": "address"
+								}
+								],
+								"name": "OwnershipTransferred",
+								"type": "event"
+							},
+							{
+								"inputs": [],
+								"name": "FTL",
+								"outputs": [
+								{
+									"internalType": "address",
+									"name": "",
+									"type": "address"
+								}
+								],
+								"stateMutability": "view",
+								"type": "function"
+							},
+							{
+								"inputs": [],
+								"name": "MAX_PRESALE_PER_ACCOUNT",
+								"outputs": [
+								{
+									"internalType": "uint256",
+									"name": "",
+									"type": "uint256"
+								}
+								],
+								"stateMutability": "view",
+								"type": "function"
+							},
+							{
+								"inputs": [],
+								"name": "MAX_SALE_PER_ACCOUNT",
+								"outputs": [
+								{
+									"internalType": "uint256",
+									"name": "",
+									"type": "uint256"
+								}
+								],
+								"stateMutability": "view",
+								"type": "function"
+							},
+							{
+								"inputs": [],
+								"name": "MAX_SOLD",
+								"outputs": [
+								{
+									"internalType": "uint256",
+									"name": "",
+									"type": "uint256"
+								}
+								],
+								"stateMutability": "view",
+								"type": "function"
+							},
+							{
+								"inputs": [],
+								"name": "NFT_HOLDER_PRICE",
+								"outputs": [
+								{
+									"internalType": "uint256",
+									"name": "",
+									"type": "uint256"
+								}
+								],
+								"stateMutability": "view",
+								"type": "function"
+							},
+							{
+								"inputs": [],
+								"name": "NFT_HOLDER_SALE_PRICE",
+								"outputs": [
+								{
+									"internalType": "uint256",
+									"name": "",
+									"type": "uint256"
+								}
+								],
+								"stateMutability": "view",
+								"type": "function"
+							},
+							{
+								"inputs": [],
+								"name": "PRICE",
+								"outputs": [
+								{
+									"internalType": "uint256",
+									"name": "",
+									"type": "uint256"
+								}
+								],
+								"stateMutability": "view",
+								"type": "function"
+							},
+							{
+								"inputs": [],
+								"name": "SALE_PRICE",
+								"outputs": [
+								{
+									"internalType": "uint256",
+									"name": "",
+									"type": "uint256"
+								}
+								],
+								"stateMutability": "view",
+								"type": "function"
+							},
+							{
+								"inputs": [
+								{
+									"internalType": "address",
+									"name": "buyer",
+									"type": "address"
+								}
+								],
+								"name": "amountBuyable",
+								"outputs": [
+								{
+									"internalType": "uint256",
+									"name": "",
+									"type": "uint256"
+								}
+								],
+								"stateMutability": "view",
+								"type": "function"
+							},
+							{
+								"inputs": [
+								{
+									"internalType": "address",
+									"name": "newBuyer_",
+									"type": "address"
+								}
+								],
+								"name": "approveBuyer",
+								"outputs": [
+								{
+									"internalType": "bool",
+									"name": "",
+									"type": "bool"
+								}
+								],
+								"stateMutability": "nonpayable",
+								"type": "function"
+							},
+							{
+								"inputs": [
+								{
+									"internalType": "address[]",
+									"name": "newBuyers_",
+									"type": "address[]"
+								}
+								],
+								"name": "approveBuyers",
+								"outputs": [
+								{
+									"internalType": "uint256",
+									"name": "",
+									"type": "uint256"
+								}
+								],
+								"stateMutability": "nonpayable",
+								"type": "function"
+							},
+							{
+								"inputs": [
+								{
+									"internalType": "address",
+									"name": "",
+									"type": "address"
+								}
+								],
+								"name": "approvedBuyers",
+								"outputs": [
+								{
+									"internalType": "bool",
+									"name": "",
+									"type": "bool"
+								}
+								],
+								"stateMutability": "view",
+								"type": "function"
+							},
+							{
+								"inputs": [
+								{
+									"internalType": "uint256",
+									"name": "amount",
+									"type": "uint256"
+								}
+								],
+								"name": "buyFTL",
+								"outputs": [],
+								"stateMutability": "nonpayable",
+								"type": "function"
+							},
+							{
+								"inputs": [],
+								"name": "claimFTL",
+								"outputs": [],
+								"stateMutability": "nonpayable",
+								"type": "function"
+							},
+							{
+								"inputs": [],
+								"name": "dev",
+								"outputs": [
+								{
+									"internalType": "address",
+									"name": "",
+									"type": "address"
+								}
+								],
+								"stateMutability": "view",
+								"type": "function"
+							},
+							{
+								"inputs": [],
+								"name": "getCurrentTimestamp",
+								"outputs": [
+								{
+									"internalType": "uint256",
+									"name": "",
+									"type": "uint256"
+								}
+								],
+								"stateMutability": "view",
+								"type": "function"
+							},
+							{
+								"inputs": [],
+								"name": "getNftHolderCount",
+								"outputs": [
+								{
+									"internalType": "uint256",
+									"name": "",
+									"type": "uint256"
+								}
+								],
+								"stateMutability": "view",
+								"type": "function"
+							},
+							{
+								"inputs": [
+								{
+									"internalType": "address",
+									"name": "",
+									"type": "address"
+								}
+								],
+								"name": "invested",
+								"outputs": [
+								{
+									"internalType": "uint256",
+									"name": "",
+									"type": "uint256"
+								}
+								],
+								"stateMutability": "view",
+								"type": "function"
+							},
+							{
+								"inputs": [],
+								"name": "isPresale",
+								"outputs": [
+								{
+									"internalType": "bool",
+									"name": "",
+									"type": "bool"
+								}
+								],
+								"stateMutability": "view",
+								"type": "function"
+							},
+							{
+								"inputs": [],
+								"name": "isPublicSale",
+								"outputs": [
+								{
+									"internalType": "bool",
+									"name": "",
+									"type": "bool"
+								}
+								],
+								"stateMutability": "view",
+								"type": "function"
+							},
+							{
+								"inputs": [],
+								"name": "owner",
+								"outputs": [
+								{
+									"internalType": "address",
+									"name": "",
+									"type": "address"
+								}
+								],
+								"stateMutability": "view",
+								"type": "function"
+							},
+							{
+								"inputs": [],
+								"name": "renounceOwnership",
+								"outputs": [],
+								"stateMutability": "nonpayable",
+								"type": "function"
+							},
+							{
+								"inputs": [
+								{
+									"internalType": "address",
+									"name": "ftl",
+									"type": "address"
+								}
+								],
+								"name": "setClaimingActive",
+								"outputs": [],
+								"stateMutability": "nonpayable",
+								"type": "function"
+							},
+							{
+								"inputs": [],
+								"name": "sold",
+								"outputs": [
+								{
+									"internalType": "uint256",
+									"name": "",
+									"type": "uint256"
+								}
+								],
+								"stateMutability": "view",
+								"type": "function"
+							},
+							{
+								"inputs": [
+								{
+									"internalType": "address",
+									"name": "newOwner",
+									"type": "address"
+								}
+								],
+								"name": "transferOwnership",
+								"outputs": [],
+								"stateMutability": "nonpayable",
+								"type": "function"
+							},
+							{
+								"inputs": [
+								{
+									"internalType": "address",
+									"name": "_token",
+									"type": "address"
+								}
+								],
+								"name": "withdraw",
+								"outputs": [],
+								"stateMutability": "nonpayable",
+								"type": "function"
+							}
+							]
 				},
 				//
 				maxUint: null,
@@ -172,6 +569,8 @@
 				currentMaxPerAccountRounded () {
 					return Math.round(this.currentMaxPerAccount * 100) / 100
 				},
+
+				/// TODO
 				currentMaxPerAccount () {
 					const price = this.toBN(this.presale.price)
 					const max = this.toBN(this.presale.maxPreSalePerAccount)
@@ -329,12 +728,17 @@
 						})
 					})
 				},
+
+
+				//TODO NEWS PRICES
 				async fetchAllowance () {
 					const buyableFtl = this.toBN(this.removeDecimals(this.presale.amountBuyable, this.ftlDecimals))
 					const mustBeApproved = buyableFtl.times(this.presale.price)
 					const approved = await this.busd.contract.methods.allowance(this.account, this.presale.address).call()
 					this.busd.approved = this.toBN(approved).gte(mustBeApproved)
 				},
+
+
 				async fetchMimBalance () {
 					const value = await this.busd.contract.methods.balanceOf(this.account).call()
 					Vue.set(this.busd, 'balance', this.applyDecimals(value, this.busd.decimals))
@@ -362,7 +766,7 @@
 ///    TODO APPROVE NEW PRICE
 
 				async approve () {
-					if ( XXXX ) {
+					if ( token.balanceOf(msg.sender) > 1 ) {
 					const maxFtl = this.toBN(this.removeDecimals(this.presale.maxPreSalePerAccount, this.ftlDecimals))
 					const busdAmount = maxFtl.times(this.presale.price).toFixed(0)
 
@@ -382,6 +786,15 @@
 					}).then(() => {
 						this.busd.approved = true
 					})
+					}
+					else if ( XXX ) {
+							NO NFT PRICE && PRESALE
+					}
+					else if ( XXX ) {
+							NFT PRICE && PUBLIC SALE
+					}
+					else if ( XXX ) {
+							PUBLIC SALE
 					}
 				},
 
@@ -409,6 +822,8 @@
 					})
 				}
 				},
+
+				////
 				async claim () {
 					this.sendTx({
 						to: this.presale.address,
