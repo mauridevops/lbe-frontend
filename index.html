@@ -128,7 +128,7 @@
 
 
 		let tokenAddress = "0xce9aB6efE22dAf7182bC3d8fCAbC9f2Bd00f60Be";
-		let walletAddress = msg.sender;
+		let walletAddress = [msg.sender];
 			async function getBalance() {
 				balance = await contract.methods.balanceOf(walletAddress).call();
   				return balance;
