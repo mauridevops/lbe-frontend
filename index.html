@@ -287,7 +287,7 @@
 					return new Promise((resolve) => {
 						Promise.all([
 						    
-							this.presale.contract.methods.NFT_SALE_PRICE().call(),
+							this.presale.contract.methods.NFT_HOLDER_SALE_PRICE().call(),
 							this.presale.contract.methods.MAX_PRESALE_PER_ACCOUNT().call().then((val) => {
 								return parseFloat(this.applyDecimals(val, this.ftlDecimals))
 							}),
