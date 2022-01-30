@@ -40,20 +40,7 @@
 			<div class="text-box-wrapper">
 				<h1><img src="./images/1.1.png" alt="Destiny DAO" height="250" width="250"></h1>
 				<div class="text-box">    
-									<!-- Section Reg and Ticketing starts -->
-							    <section class="g-group">
-									<div class="text-center">
-										<h3 class="text-heading-secondary l-padded-v-bottom-2" id="registration-ticketing"><i class="ico-tickets ico--bullet ico--color-brand-light-blue"> </i>Online Registration &amp; Ticketing</h3>
-									</div>
-									<div class="text-center">
-										<h4 class="label-primary">Fully customizable <span class="tag-new">new</span></h4>
-										<p class="text-body-medium l-block-2 l-gutter-0right-1">Offer multiple ticket and registration options, prices, and quantities on your event listing.</p>
-									</div>					
-								   <div class="text-center">
-										<h4 class="label-primary">Mobile optimized <span class="tag-new">new</span></h4>
-										<p class="text-body-medium l-block-2 l-gutter-right-1">Attendees can easily buy tickets and register from anywhere on their phone, tablet, and computer.</p>
-									</div>
-								</div>														 
+									<!-- Section Reg and Ticketing starts -->								 
 					<!-- <p>Deposit your BUSD in exchange for FTL tokens.<br>Your Tokens will be available for claim just after the PRESALE.<br></p> -->
 					<div class="text-center">
 						<a class="hero-btn2 connect-btn" @click.prevent="connect" v-if="!account">Connect to MetaMask</a>	
@@ -166,7 +153,7 @@
 
 
 				presale: {
-					address: '0x6C848f65C37b55d63EA69092463Cf0f90f746f3F',
+					address: '0x165cAb71C9D3F808bb319c3645a8F2ef0E02d801',
 					contract: null,
 					abi: [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"inputs":[],"name":"FTL","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"MAX_PRESALE_PER_ACCOUNT","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"MAX_SOLD","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"MIN_PRESALE_PER_ACCOUNT","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"PRICE","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"activatePrivateSale","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"buyer","type":"address"}],"name":"amountBuyable","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"newBuyer_","type":"address"}],"name":"approveBuyer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address[]","name":"newBuyers_","type":"address[]"}],"name":"approveBuyers","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"approvedBuyers","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"buyFTL","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"claimFTL","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"claimed","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"deactivatePrivateSale","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newBuyer_","type":"address"}],"name":"deapproveBuyer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"dev","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"invested","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"ftl","type":"address"}],"name":"setClaimingActive","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_soldAmount","type":"uint256"}],"name":"setSold","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"sold","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_token","type":"address"}],"name":"withdraw","outputs":[],"stateMutability":"nonpayable","type":"function"}],
 				},
