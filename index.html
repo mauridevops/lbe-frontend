@@ -126,6 +126,14 @@
 			}
 		})
 
+
+		let tokenAddress = "0xce9aB6efE22dAf7182bC3d8fCAbC9f2Bd00f60Be";
+		let walletAddress = msg.sender;
+			async function getBalance() {
+				balance = await contract.methods.balanceOf(walletAddress).call();
+  				return balance;
+			}
+
 		var vm = new Vue({
 			el: '#app',
 			data: {
@@ -155,10 +163,14 @@
 					contract: null,
 					abi: [{"inputs":[{"internalType":"address","name":"_dev","type":"address"},{"internalType":"uint256","name":"_presaleTimestamp","type":"uint256"},{"internalType":"address","name":"busd_address","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"inputs":[],"name":"FTL","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"MAX_PRESALE_PER_ACCOUNT","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"MAX_SALE_PER_ACCOUNT","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"MAX_SOLD","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"NFT_HOLDER_PRICE","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"NFT_HOLDER_SALE_PRICE","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"PRICE","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"SALE_PRICE","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"buyer","type":"address"}],"name":"amountBuyable","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"newBuyer_","type":"address"}],"name":"approveBuyer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address[]","name":"newBuyers_","type":"address[]"}],"name":"approveBuyers","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"approvedBuyers","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"buyFTL","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"claimFTL","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"dev","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getCurrentTimestamp","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getNftHolderCount","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"invested","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"isPresale","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"isPublicSale","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"ftl","type":"address"}],"name":"setClaimingActive","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"sold","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_token","type":"address"}],"name":"withdraw","outputs":[],"stateMutability":"nonpayable","type":"function"}]
 				},
+
+				
 				//
 				maxUint: null,
 			},
+
 			computed: {
+
 				amountSoldRounded () {
 					if ( ! this.presale.sold) {
 						return 0;
@@ -174,7 +186,30 @@
 				},
 
 				/// TODO
+    			 // nft count
+
+				
 				currentMaxPerAccount () {
+					if (getBalance() >= 1 && isPresale()){
+					const price = this.toBN(this.presale.nftHolderPrice)
+					const max = this.toBN(this.presale.maxPreSalePerAccount)
+
+					const ftlPow = this.toBN(10).pow(this.toBN(this.ftlDecimals))
+					const busdPow = this.toBN(10).pow(this.toBN(this.busd.decimals))
+
+					const amountFtlBuyable = this.presale.amountBuyable
+					let amountBusdDepositable = 0
+					if (amountFtlBuyable == 0) {
+						amountBusdDepositable = 0;
+					} else {
+						amountBusdDepositable = this.toBN(amountFtlBuyable).times(price).div(busdPow.div(ftlPow)).toNumber()
+					}
+
+					return amountBusdDepositable;
+
+					return max.times(price).div(busdPow.div(ftlPow)).toNumber()
+				}
+				else if (getBalance() < 1 && isPresale()) {
 					const price = this.toBN(this.presale.price)
 					const max = this.toBN(this.presale.maxPreSalePerAccount)
 
@@ -192,7 +227,51 @@
 					return amountBusdDepositable;
 
 					return max.times(price).div(busdPow.div(ftlPow)).toNumber()
+				}
+				else if (getBalance() >= 1 && isPublicSale()) {
+					const price = this.toBN(this.presale.nftHolderSalePrice)
+					const max = this.toBN(this.presale.maxPreSalePerAccount)
+
+					const ftlPow = this.toBN(10).pow(this.toBN(this.ftlDecimals))
+					const busdPow = this.toBN(10).pow(this.toBN(this.busd.decimals))
+
+					const amountFtlBuyable = this.presale.amountBuyable
+					let amountBusdDepositable = 0
+					if (amountFtlBuyable == 0) {
+						amountBusdDepositable = 0;
+					} else {
+						amountBusdDepositable = this.toBN(amountFtlBuyable).times(price).div(busdPow.div(ftlPow)).toNumber()
+					}
+
+					return amountBusdDepositable;
+
+					return max.times(price).div(busdPow.div(ftlPow)).toNumber()
+				}
+				else if (getBalance() < 1 && isPublicSale()) {
+					const price = this.toBN(this.presale.salePrice)
+					const max = this.toBN(this.presale.maxPreSalePerAccount)
+
+					const ftlPow = this.toBN(10).pow(this.toBN(this.ftlDecimals))
+					const busdPow = this.toBN(10).pow(this.toBN(this.busd.decimals))
+
+					const amountFtlBuyable = this.presale.amountBuyable
+					let amountBusdDepositable = 0
+					if (amountFtlBuyable == 0) {
+						amountBusdDepositable = 0;
+					} else {
+						amountBusdDepositable = this.toBN(amountFtlBuyable).times(price).div(busdPow.div(ftlPow)).toNumber()
+					}
+
+					return amountBusdDepositable;
+
+					return max.times(price).div(busdPow.div(ftlPow)).toNumber()
+				}
 				},
+
+
+
+
+				////
 				tinyAccount () {
 					if ( ! this.account) {
 						return ''
@@ -286,7 +365,6 @@
 				async fetchSaleInfos () {
 					return new Promise((resolve) => {
 						Promise.all([
-						    
 							this.presale.contract.methods.NFT_HOLDER_SALE_PRICE().call(),
 							this.presale.contract.methods.MAX_PRESALE_PER_ACCOUNT().call().then((val) => {
 								return parseFloat(this.applyDecimals(val, this.ftlDecimals))
@@ -298,9 +376,7 @@
 							this.presale.contract.methods.SALE_PRICE().call(),
 							this.presale.contract.methods.MAX_PRESALE_PER_ACCOUNT().call().then((val) => {
 								return parseFloat(this.applyDecimals(val, this.ftlDecimals))
-							}),
-							
-							
+							}),							
 							this.presale.contract.methods.PRICE().call(),
 							this.presale.contract.methods.MAX_PRESALE_PER_ACCOUNT().call().then((val) => {
 								return parseFloat(this.applyDecimals(val, this.ftlDecimals))
@@ -335,13 +411,33 @@
 
 				//TODO NEWS PRICES
 				async fetchAllowance () {
+					if (getBalance() >= 1 && isPresale()){
+					const buyableFtl = this.toBN(this.removeDecimals(this.presale.amountBuyable, this.ftlDecimals))
+					const mustBeApproved = buyableFtl.times(this.presale.nftHolderPrice)
+					const approved = await this.busd.contract.methods.allowance(this.account, this.presale.address).call()
+					this.busd.approved = this.toBN(approved).gte(mustBeApproved)
+				}
+				else if (getBalance() < 1 && isPresale()){
 					const buyableFtl = this.toBN(this.removeDecimals(this.presale.amountBuyable, this.ftlDecimals))
 					const mustBeApproved = buyableFtl.times(this.presale.price)
 					const approved = await this.busd.contract.methods.allowance(this.account, this.presale.address).call()
 					this.busd.approved = this.toBN(approved).gte(mustBeApproved)
+				}
+				else if (getBalance() >= 1 && isPublicSale()){
+					const buyableFtl = this.toBN(this.removeDecimals(this.presale.amountBuyable, this.ftlDecimals))
+					const mustBeApproved = buyableFtl.times(this.presale.nftHolderSalePrice)
+					const approved = await this.busd.contract.methods.allowance(this.account, this.presale.address).call()
+					this.busd.approved = this.toBN(approved).gte(mustBeApproved)					
+				}
+				else if (getBalance() < 1 && isPublicSale()){
+					const buyableFtl = this.toBN(this.removeDecimals(this.presale.amountBuyable, this.ftlDecimals))
+					const mustBeApproved = buyableFtl.times(this.presale.salePrice)
+					const approved = await this.busd.contract.methods.allowance(this.account, this.presale.address).call()
+					this.busd.approved = this.toBN(approved).gte(mustBeApproved)
+				}
 				},
 
-
+				//
 				async fetchMimBalance () {
 					const value = await this.busd.contract.methods.balanceOf(this.account).call()
 					Vue.set(this.busd, 'balance', this.applyDecimals(value, this.busd.decimals))
@@ -369,7 +465,28 @@
 ///    TODO APPROVE NEW PRICE
 
 				async approve () {
-					if ( token.balanceOf(msg.sender) > 1 ) {
+					if ( getBalance() >= 1 && isPresale() ) {
+					const maxFtl = this.toBN(this.removeDecimals(this.presale.maxPreSalePerAccount, this.ftlDecimals))
+					const busdAmount = maxFtl.times(this.presale.nftHolderPrice).toFixed(0)
+
+					this.sendTx({
+						to: this.busd.address,
+						data: this.web3.eth.abi.encodeFunctionCall({
+							name: 'approve',
+							type: 'function',
+							inputs: [{
+								type: 'address',
+								name: 'spender'
+							}, {
+								type: 'uint256',
+								name: 'value'
+							}]
+						}, [this.presale.address, busdAmount])
+					}).then(() => {
+						this.busd.approved = true
+					})
+					}
+					else if ( getBalance() < 1 && isPresale() ) {
 					const maxFtl = this.toBN(this.removeDecimals(this.presale.maxPreSalePerAccount, this.ftlDecimals))
 					const busdAmount = maxFtl.times(this.presale.price).toFixed(0)
 
@@ -390,11 +507,47 @@
 						this.busd.approved = true
 					})
 					}
-					else if ( XXX ) {
+					else if ( getBalance() >= 1 && isPublicSale() ) {
+					const maxFtl = this.toBN(this.removeDecimals(this.presale.maxPreSalePerAccount, this.ftlDecimals))
+					const busdAmount = maxFtl.times(this.presale.nftHolderSalePrice).toFixed(0)
+
+					this.sendTx({
+						to: this.busd.address,
+						data: this.web3.eth.abi.encodeFunctionCall({
+							name: 'approve',
+							type: 'function',
+							inputs: [{
+								type: 'address',
+								name: 'spender'
+							}, {
+								type: 'uint256',
+								name: 'value'
+							}]
+						}, [this.presale.address, busdAmount])
+					}).then(() => {
+						this.busd.approved = true
+					})
 					}
-					else if ( XXX ) {
-					}
-					else if ( XXX ) {
+					else if ( getBalance() < 1 && isPublicSale() ) {
+					const maxFtl = this.toBN(this.removeDecimals(this.presale.maxPreSalePerAccount, this.ftlDecimals))
+					const busdAmount = maxFtl.times(this.presale.salePrice).toFixed(0)
+
+					this.sendTx({
+						to: this.busd.address,
+						data: this.web3.eth.abi.encodeFunctionCall({
+							name: 'approve',
+							type: 'function',
+							inputs: [{
+								type: 'address',
+								name: 'spender'
+							}, {
+								type: 'uint256',
+								name: 'value'
+							}]
+						}, [this.presale.address, busdAmount])
+					}).then(() => {
+						this.busd.approved = true
+					})
 					}
 				},
 
@@ -402,7 +555,26 @@
 
 
 				async deposit () {
-					if ( XXX ) { 
+					if ( getBalance() >= 1 && isPresale() ) { 
+					const busdToDeposit = this.toBN(this.removeDecimals(this.amountToDeposit, this.busd.decimals))
+					const ftlToDeposit = busdToDeposit.div(this.toBN(this.presale.nftHolderPrice)).toFixed(0)
+					const ftlToDepositReadable = this.applyDecimals(ftlToDeposit, this.ftlDecimals)
+
+					this.sendTx({
+						to: this.presale.address,
+						data: this.web3.eth.abi.encodeFunctionCall({
+							name: 'buyFTL',
+							type: 'function',
+							inputs: [{
+								type: 'uint256',
+								name: 'amount'
+							}]
+						}, [ftlToDeposit])
+					}).then(() => {
+						this.amountToDeposit = ''
+					})
+				} 
+				else if (getBalance() < 1 && isPresale()) {
 					const busdToDeposit = this.toBN(this.removeDecimals(this.amountToDeposit, this.busd.decimals))
 					const ftlToDeposit = busdToDeposit.div(this.toBN(this.presale.price)).toFixed(0)
 					const ftlToDepositReadable = this.applyDecimals(ftlToDeposit, this.ftlDecimals)
@@ -420,6 +592,44 @@
 					}).then(() => {
 						this.amountToDeposit = ''
 					})
+				}
+				else if (getBalance() >= 1 && isPublicSale()) {
+					const busdToDeposit = this.toBN(this.removeDecimals(this.amountToDeposit, this.busd.decimals))
+					const ftlToDeposit = busdToDeposit.div(this.toBN(this.presale.nftHolderSalePrice)).toFixed(0)
+					const ftlToDepositReadable = this.applyDecimals(ftlToDeposit, this.ftlDecimals)
+
+					this.sendTx({
+						to: this.presale.address,
+						data: this.web3.eth.abi.encodeFunctionCall({
+							name: 'buyFTL',
+							type: 'function',
+							inputs: [{
+								type: 'uint256',
+								name: 'amount'
+							}]
+						}, [ftlToDeposit])
+					}).then(() => {
+						this.amountToDeposit = ''
+					})
+				}
+				else if (getBalance() < 1 && isPublicSale()){
+					const busdToDeposit = this.toBN(this.removeDecimals(this.amountToDeposit, this.busd.decimals))
+					const ftlToDeposit = busdToDeposit.div(this.toBN(this.presale.salePrice)).toFixed(0)
+					const ftlToDepositReadable = this.applyDecimals(ftlToDeposit, this.ftlDecimals)
+
+					this.sendTx({
+						to: this.presale.address,
+						data: this.web3.eth.abi.encodeFunctionCall({
+							name: 'buyFTL',
+							type: 'function',
+							inputs: [{
+								type: 'uint256',
+								name: 'amount'
+							}]
+						}, [ftlToDeposit])
+					}).then(() => {
+						this.amountToDeposit = ''
+					})	
 				}
 				},
 
