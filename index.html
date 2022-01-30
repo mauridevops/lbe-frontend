@@ -180,7 +180,7 @@ audio.onended = function() {
 
 
 				presale: {
-					address: '0x9608Dc91F1d04eC56cBa0930E59eAdF7Cf58Dff6',
+					address: '0x5E8D338E34DD3d38654CFa5a551Ecf153D895F64',
 					contract: null,
 					abi: [{ "anonymous": false, "inputs": [ { "indexed": true, "internalType": "address", "name": "previousOwner", "type": "address" }, { "indexed": true, "internalType": "address", "name": "newOwner", "type": "address" } ], "name": "OwnershipTransferred", "type": "event" }, { "inputs": [], "name": "owner", "outputs": [ { "internalType": "address", "name": "", "type": "address" } ], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "renounceOwnership", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [ { "internalType": "address", "name": "newOwner", "type": "address" } ], "name": "transferOwnership", "outputs": [], "stateMutability": "nonpayable", "type": "function" }],
 				},
@@ -350,11 +350,11 @@ audio.onended = function() {
 					const value = await this.busd.contract.methods.balanceOf(this.account).call()
 					Vue.set(this.busd, 'balance', this.applyDecimals(value, this.busd.decimals))
 				},
-				/*async fetchDeposited () {
+				async fetchDeposited () {
 					const newValue = await this.presale.contract.methods.invested(this.account).call()
 					const value = Math.max(oldValue, newValue);
 					Vue.set(this.presale, 'deposited', this.applyDecimals(value, this.ftlDecimals))
-				},*/
+				},
 				toBN (val) {
 					return new BigNumber(val)
 				},
