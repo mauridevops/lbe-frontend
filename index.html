@@ -384,7 +384,7 @@
 								return parseFloat(this.applyDecimals(sold, this.ftlDecimals))
 							}),
 							this.presale.contract.methods.getNftHolderCount().call().then((getNftHolderCount) => {
-								return uint256 (count)
+								return (count)
 							}),
 							this.presale.contract.methods.FTL().call(),							
 						]).then((infos) => {
