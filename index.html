@@ -128,27 +128,6 @@
 			}
 		})
 
-
-			let contract = web3.eth.contract(presale).at(tokenAddress);
-
-			contract.balanceOf(walletAddress, (error, balance) => {
-			contract.decimals((error, decimals) => {
-				balance = balance.div(10**decimals);
-				console.log(balance.toString());
-				callback(balance);
-			});
-			});
-
-			setInterval(function() {
-			let tokenAddress = '0xce9aB6efE22dAf7182bC3d8fCAbC9f2Bd00f60Be';
-			let walletAddress = web3.eth.account[0];
-					if(tokenAddress != "" && walletAddress != "") {
-				getERC721TokenBalance(tokenAddress, walletAddress, (balance) => {
-					document.getElementById('text-bal').innerText = balance.toFixed(3);
-				});        
-				};
-				}, 100);
-
 		var vm = new Vue({
 			el: '#app',
 			data: {
