@@ -35,15 +35,20 @@
 				</div>
 			</nav>
 
-		
-
+	
 			<div class="text-box-wrapper">
 				<h1><img src="./images/1.1.png" alt="Destiny DAO" height="250" width="250"></h1>
 				<div class="text-box">    
-									<!-- Section Reg and Ticketing starts -->								 
+					<script>
+						login = async () => {
+							Moralis.authenticate().then(function (user) {
+								console.log(user.get('ethAddress'))
+							})
+							}
+					</script>																	 
 					<!-- <p>Deposit your BUSD in exchange for FTL tokens.<br>Your Tokens will be available for claim just after the PRESALE.<br></p> -->
 					<div class="text-center">
-						<a class="hero-btn2 connect-btn" @click.prevent="connect" v-if="!account">Connect to MetaMask</a>	
+						<a class="hero-btn2 connect-btn" onclick="login" @click.prevent="login" v-if="!account">Connect to MetaMask</a>	
 					</div>
 					<div v-if="account" class="wrapper">
 						<div v-if="loading" class="loader">
