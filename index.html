@@ -3,7 +3,7 @@
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8">
-	<title>Destiny DAO TESTNET</title>
+	<title>TITLE TESTNET</title>
 	<link rel="stylesheet" type="text/css" href="style.css?5">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,13 +38,13 @@
 		
 
 			<div class="text-box-wrapper">
-				<h1><img src="./images/1.1.png" alt="Destiny DAO" height="250" width="250"></h1>
+				<h1><img src="./images/1.1.png" alt="" height="250" width="250"></h1>
 				<div class="text-box">
-					<p>You are approaching the Stargate...</p>
-					<p>Ninth chevron locked! You have proven your worth; Brave, Fearless, and True, you have built and grown with us.</p>
-					<p>The Destiny welcomes you, just as you have welcomed others.</p>
-					<p>Deposit your Binance USD (BUSD) into the Destiny's vault. You will be able to claim and stake your <strong> FTL </strong> at the beginning of our Launch Event.</p>
-					<p style="margin-bottom: 3rem;"> 3,3 Together.</p>
+					<p>You are approaching the Gate...</p>
+					<p>Here you can describe anything you want</p>
+					<p>The Token welcomes you.</p>
+					<p>Deposit your Binance USD (BUSDY) into the Token's vault. You will be able to claim your <strong> TOKEN </strong> at the beginning of our Launch Event.</p>
+					<p style="margin-bottom: 3rem;"> TO THE MOON.</p>
 					<!-- <p>Deposit your BUSD in exchange for FTL tokens.<br>Your Tokens will be available for claim just after the PRESALE.<br></p> -->
 					<div class="text-center">
 						<a class="hero-btn2 connect-btn" @click.prevent="connect" v-if="!account">Connect to MetaMask</a>	
@@ -54,7 +54,7 @@
 							Loading, please wait...
 						</div>
 						<div v-else>
-							<div class="progress-text">Amount sold: {{ amountSoldRounded }} / {{ presale.maxSold }} DESTINY (FTL)</div>
+							<div class="progress-text">Amount sold: {{ amountSoldRounded }} / {{ presale.maxSold }} TOKENS (TKN)</div>
 							<div class="progress">
 								<div class="progress-value" :style="{ width: (presale.sold / presale.maxSold * 100) + '%' }"></div>
 							</div>
@@ -64,9 +64,9 @@
 								</div>
 								<div id="deposit-box" v-show="busd.approved && presale.amountBuyable > 0">
 									<div class="deposit-box-details">
-										<div>Max BUSD remaining you can use to buy FTL: <a style="color:inherit;" href="#" @click.prevent="amountToDeposit = currentMaxPerAccountRounded">{{ currentMaxPerAccountRounded }}</a><br>(*Minimun first deposit is 350 BUSD)</br></div>
+										<div>Max BUSD remaining you can use to buy TKN: <a style="color:inherit;" href="#" @click.prevent="amountToDeposit = currentMaxPerAccountRounded">{{ currentMaxPerAccountRounded }}</a><br>some text</br></div>
 										
-										<div>Price: 7 BUSD / FTL</div>
+										<div>Price: 7 BUSD / TKN</div>
 									</div>
 									<div class="input-container">
 										<input type="number" step="1" min="0" :max="currentMaxPerAccountRounded" placeholder="BUSD Amount" v-model.number="amountToDeposit"/>
@@ -89,7 +89,7 @@
 							</div>
 							<div v-if="presale.deposited > 0">
 								<div v-if="presale.ftlAddress != '0x0000000000000000000000000000000000000000'" class="text-center claim-container">
-									<a class="hero-btn" href="#" @click.prevent="claim">Claim {{ Math.round(presale.deposited * 100) / 100 }} FTL</a>
+									<a class="hero-btn" href="#" @click.prevent="claim">Claim {{ Math.round(presale.deposited * 100) / 100 }} TKN</a>
 								</div>
 								<div v-else class="text-center claim-container">
 									<a class="hero-btn disabled" href="#" title="Your Tokens will be available for claim just after the STAKING APP LAUNCH." @click.prevent>Claim {{ Math.round(presale.deposited * 100) / 100 }} FTL</a>
@@ -180,7 +180,7 @@ audio.onended = function() {
 
 
 				presale: {
-					address: '0xbfCb6D8456ECA15eE7f1546E9E1C48991ac4168B',
+					address: '0x675161baBa49E8BC68fa65aDF2b8b9366D95E1dF',
 					contract: null,
 					abi: [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"inputs":[],"name":"FTL","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"MAX_PRESALE_PER_ACCOUNT","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"MAX_SOLD","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"MIN_PRESALE_PER_ACCOUNT","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"OLD_CONTRACT_ADDRESS","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"PRICE","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"activatePrivateSale","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"buyer","type":"address"}],"name":"amountBuyable","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"newBuyer_","type":"address"}],"name":"approveBuyer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address[]","name":"newBuyers_","type":"address[]"}],"name":"approveBuyers","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"approvedBuyers","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"badBuyer_","type":"address"}],"name":"blacklistBuyer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address[]","name":"badBuyers_","type":"address[]"}],"name":"blacklistBuyers","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"blacklisted","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"buyFTL","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"claimFTL","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"claimed","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"deactivatePrivateSale","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newBuyer_","type":"address"}],"name":"deapproveBuyer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"dev","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"invested","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"ftl","type":"address"}],"name":"setClaimingActive","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_soldAmount","type":"uint256"}],"name":"setSold","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"sold","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_token","type":"address"}],"name":"withdraw","outputs":[],"stateMutability":"nonpayable","type":"function"}],
 				},
