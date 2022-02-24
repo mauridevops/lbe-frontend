@@ -140,6 +140,21 @@ nav{
 .hero-btn.disabled {
 	background: #8f7686;
 }
+.hero-btn3{
+    display: block;
+    text-decoration: none;
+    width: 100%;
+    color: #fff;
+    border: 2px solid #00112e;
+    padding: 9px;
+    font-size: 14px;
+    font-weight: 450;
+    background: #5026b7;
+    position: relative;
+    cursor: pointer;
+    border-radius: 5px;
+    overflow: hidden;
+}
 .hero-btn2{
 	display: inline-block;
 	text-decoration: none;
@@ -471,7 +486,3 @@ a.disabled {
 		height: 30%;
 	}
 }
-#play-pause-button{
-	font-size: 50px;
-	cursor: pointer;
-  }

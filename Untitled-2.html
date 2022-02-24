@@ -13,12 +13,6 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
 	<script src="./bignumber.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
-    <script src="https://unpkg.com/moralis/dist/moralis.js"></script>
-	<script>
-
-
-    </script>
 </head>
 <body>
 	<div id="app" v-cloak>
@@ -35,9 +29,8 @@
 						<div class="btn2" v-show="account">
 							<div class="hero-btn2">{{ busdBalanceRounded ? busdBalanceRounded : '0' }} BUSD</div>
 							<div class="hero-btn2">{{ tinyAccount }}</div>
-							<button class="hero-btn3" onclick="login()" id="btn-login">Holding NFT? Log In for Discount!</button>
+							<a :href="'https://testnet.bscscan.com/address/' + presale.address" target="_blank" class="hero-btn3">Presale Contract</a>
 						</div>
-
 					</ul>
 				</div>
 			</nav>
@@ -54,7 +47,7 @@
 					<p style="margin-bottom: 3rem;"> 3,3 Together.</p>
 					<!-- <p>Deposit your BUSD in exchange for FTL tokens.<br>Your Tokens will be available for claim just after the PRESALE.<br></p> -->
 					<div class="text-center">
-						<button class="hero-btn2 connect-btn" onclick="login()"  @click.prevent="connect" v-if="!account" id="btn-login">Moralis Login</button>
+						<a class="hero-btn2 connect-btn" @click.prevent="connect" v-if="!account">Connect to MetaMask</a>	
 					</div>
 					<div v-if="account" class="wrapper">
 						<div v-if="loading" class="loader">
@@ -113,43 +106,6 @@
 	</div>
 	<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 	<script>
-
-
-
-        // connect to Moralis server
-        Moralis.initialize("r5dtnxsIfAkIxULOWOccNrAqE1yNLV677X4FeoN7");
-        Moralis.serverURL = "https://yaxrjfls0phf.usemoralis.com:2053/server";
-
-        // Login with metamask and get the ethAddress
-        
-        login = async () => {
-            	Moralis.Web3.authenticate({signingMessage:"Welcome Destiny Denizen - Please Sign In to autenticate your Governance NFT Balance and get Tokens at Discount!"}).then(function (user) {
-					location.reload()				
-            })
-
-		}
-        getNFTBalances = async () => {
-            // get NFTs for current user on Mainnet
-            const options = { chain: 'bsc testnet'};
-            const usernfts = await Moralis.Web3.getNFTs(options);
-			const userhavenft = usernfts.find(find0xc2605c9ce7b15cc548054c2b2f4d6195ec6ac8a3)
-			
-			function find0xc2605c9ce7b15cc548054c2b2f4d6195ec6ac8a3(usernfts){
-				return usernfts.token_address  == 0xc2605c9ce7b15cc548054c2b2f4d6195ec6ac8a3
-			}
-			console.log(userhavenft.token_address);
-			const result = userhavenft.token_address;
-			function testresult(){
-				if (result == 0xc2605c9ce7b15cc548054c2b2f4d6195ec6ac8a3){
-					console.log(result);
-				}
-			}
-			testresult()
-			
-		}
-			
-        getNFTBalances();
-
 		if (($(document).width() / $(document).height()) < (16 / 9)) {
 			$('video').css({
 				width: 'auto',
@@ -214,7 +170,7 @@
 						return 0;
 					}
 
-				return Math.round(this.presale.sold * 100) / 100
+					return Math.round(this.presale.sold * 100) / 100
 				},
 				amountToDepositRounded () {
 					return Math.round(this.amountToDeposit * 100) / 100
@@ -223,7 +179,6 @@
 					return Math.round(this.currentMaxPerAccount * 100) / 100
 				},
 				currentMaxPerAccount () {
-					if (result == 0xc2605c9ce7b15cc548054c2b2f4d6195ec6ac8a3){
 					const price = this.toBN(this.presale.price)
 					const max = this.toBN(this.presale.maxPreSalePerAccount)
 
@@ -241,27 +196,6 @@
 					return amountBusdDepositable;
 
 					return max.times(price).div(busdPow.div(ftlPow)).toNumber()
-				}
-				else if (result == 0xc2605c9ce7b15cc548054c2b2f4d6195ec6ac8a3){
-					const price = this.toBN(this.presale.price)
-					const max = this.toBN(this.presale.maxPreSalePerAccount)
-
-					const ftlPow = this.toBN(10).pow(this.toBN(this.ftlDecimals))
-					const busdPow = this.toBN(10).pow(this.toBN(this.busd.decimals))
-
-					const amountFtlBuyable = this.presale.amountBuyable
-					let amountBusdDepositable = 0
-					if (amountFtlBuyable == 0) {
-						amountBusdDepositable = 0;
-					} else {
-						amountBusdDepositable = this.toBN(amountFtlBuyable).times(price).div(busdPow.div(ftlPow)).toNumber()
-					}
-
-					return amountBusdDepositable;
-
-					return max.times(price).div(busdPow.div(ftlPow)).toNumber()
-
-				}
 				},
 				tinyAccount () {
 					if ( ! this.account) {
@@ -516,9 +450,6 @@
 				}
 			}
 		})
-
-
-
 		
 		// var MIM_ADDRESS = '0x130966628846BFd36ff31a822705796e8cb8C18D';
 		// var PRESALE_ADDRESS = '0x130966628846BFd36ff31a822705796e8cb8C18D';
@@ -701,7 +632,6 @@
 		// 	}, 5000)
 		// }
 	</script>
-	
 	
 
     

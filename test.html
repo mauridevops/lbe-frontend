@@ -132,21 +132,9 @@
             // get NFTs for current user on Mainnet
             const options = { chain: 'bsc testnet'};
             const usernfts = await Moralis.Web3.getNFTs(options);
-			const userhavenft = usernfts.find(find0xc2605c9ce7b15cc548054c2b2f4d6195ec6ac8a3)
-			
-			function find0xc2605c9ce7b15cc548054c2b2f4d6195ec6ac8a3(usernfts){
-				return usernfts.token_address  == 0xc2605c9ce7b15cc548054c2b2f4d6195ec6ac8a3
-			}
-			console.log(userhavenft.token_address);
-			const result = userhavenft.token_address;
-			function testresult(){
-				if (result == 0xc2605c9ce7b15cc548054c2b2f4d6195ec6ac8a3){
-					console.log(result);
-				}
-			}
-			testresult()
-			
+            let newnftlist = nft.map(usernfts => {return {"token_address":usernfts.token_address}}) 
 		}
+            console.log();
 			
         getNFTBalances();
 
