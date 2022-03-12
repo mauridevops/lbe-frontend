@@ -3,7 +3,7 @@
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8">
-	<title>Destiny DAO TESTNET</title>
+	<title>Presale TESTNET</title>
 	<link rel="stylesheet" type="text/css" href="style.css?5">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,7 +35,6 @@
 						<div class="btn2" v-show="account">
 							<div class="hero-btn2">{{ busdBalanceRounded ? busdBalanceRounded : '0' }} BUSD</div>
 							<div class="hero-btn2">{{ tinyAccount }}</div>
-							<button class="hero-btn3" onclick="login()" id="btn-login">Holding NFT? Log In for Discount!</button>
 						</div>
 
 					</ul>
@@ -45,14 +44,14 @@
 		
 
 			<div class="text-box-wrapper">
-				<h1><img src="./images/1.1.png" alt="Destiny DAO" height="250" width="250"></h1>
+				<h1><img src="./images/logo.png" alt="Destiny DAO" height="250" width="250"></h1>
 				<div class="text-box">
-					<p>You are approaching the Stargate...</p>
-					<p>Ninth chevron locked! You have proven your worth; Brave, Fearless, and True, you have built and grown with us.</p>
-					<p>The Destiny welcomes you, just as you have welcomed others.</p>
-					<p>Deposit your Binance USD (BUSD) into the Destiny's vault. You will be able to claim and stake your <strong> FTL </strong> at the beginning of our Launch Event.</p>
-					<p style="margin-bottom: 3rem;"> 3,3 Together.</p>
-					<!-- <p>Deposit your BUSD in exchange for FTL tokens.<br>Your Tokens will be available for claim just after the PRESALE.<br></p> -->
+					<p>You are approaching the Gate...</p>
+					<p>You have proven your worth; Brave, Fearless, and True, you have built and grown with us.</p>
+					<p>The Future welcomes you, just as you have welcomed others.</p>
+					<p>Deposit your Binance USD (BUSD) into the Destiny's vault. You will be able to claim and stake your <strong> TOKEN </strong> at the beginning of our Launch Event.</p>
+					<p style="margin-bottom: 3rem;"> Together to the moon.</p>
+					<!-- <p>Deposit your BUSD in exchange for TOKEN tokens.<br>Your Tokens will be available for claim just after the PRESALE.<br></p> -->
 					<div class="text-center">
 						<button class="hero-btn2 connect-btn" onclick="login()"  @click.prevent="connect" v-if="!account" id="btn-login">Moralis Login</button>
 					</div>
@@ -61,7 +60,7 @@
 							Loading, please wait...
 						</div>
 						<div v-else>
-							<div class="progress-text">Amount sold: {{ amountSoldRounded }} / {{ presale.maxSold }} DESTINY (FTL)</div>
+							<div class="progress-text">Amount sold: {{ amountSoldRounded }} / {{ presale.maxSold }} TOKEN (TOKEN)</div>
 							<div class="progress">
 								<div class="progress-value" :style="{ width: (presale.sold / presale.maxSold * 100) + '%' }"></div>
 							</div>
@@ -71,9 +70,9 @@
 								</div>
 								<div id="deposit-box" v-show="busd.approved && presale.amountBuyable > 0">
 									<div class="deposit-box-details">
-										<div>Max BUSD remaining you can use to buy FTL: <a style="color:inherit;" href="#" @click.prevent="amountToDeposit = currentMaxPerAccountRounded">{{ currentMaxPerAccountRounded }}</a><br>(*Minimun first deposit is 350 BUSD)</br></div>
+										<div>Max BUSD remaining you can use to buy TOKEN: <a style="color:inherit;" href="#" @click.prevent="amountToDeposit = currentMaxPerAccountRounded">{{ currentMaxPerAccountRounded }}</a><br>(*Minimun  deposit is 10 BUSD)</br></div>
 										
-										<div>Price: 7 BUSD / FTL</div>
+										<div>Price: 0.5 BUSD / TOKEN</div>
 									</div>
 									<div class="input-container">
 										<input type="number" step="1" min="0" :max="currentMaxPerAccountRounded" placeholder="BUSD Amount" v-model.number="amountToDeposit"/>
@@ -95,11 +94,11 @@
 								The sale is not opened
 							</div>
 							<div v-if="presale.deposited > 0">
-								<div v-if="presale.ftlAddress != '0x0000000000000000000000000000000000000000'" class="text-center claim-container">
-									<a class="hero-btn" href="#" @click.prevent="claim">Claim {{ Math.round(presale.deposited * 100) / 100 }} FTL</a>
+								<div v-if="presale.tokenAddress != '0x0000000000000000000000000000000000000000'" class="text-center claim-container">
+									<a class="hero-btn" href="#" @click.prevent="claim">Claim {{ Math.round(presale.deposited * 100) / 100 }} TOKEN</a>
 								</div>
 								<div v-else class="text-center claim-container">
-									<a class="hero-btn disabled" href="#" title="Your Tokens will be available for claim just after the STAKING APP LAUNCH." @click.prevent>Claim {{ Math.round(presale.deposited * 100) / 100 }} FTL</a>
+									<a class="hero-btn disabled" href="#" title="Your Tokens will be available for claim just after the STAKING APP LAUNCH." @click.prevent>Claim {{ Math.round(presale.deposited * 100) / 100 }} TOKEN</a>
 								</div>
 							</div>
 						</div>
@@ -115,40 +114,6 @@
 	<script>
 
 
-
-        // connect to Moralis server
-        Moralis.initialize("r5dtnxsIfAkIxULOWOccNrAqE1yNLV677X4FeoN7");
-        Moralis.serverURL = "https://yaxrjfls0phf.usemoralis.com:2053/server";
-
-        // Login with metamask and get the ethAddress
-        
-        login = async () => {
-            	Moralis.Web3.authenticate({signingMessage:"Welcome Destiny Denizen - Please Sign In to autenticate your Governance NFT Balance and get Tokens at Discount!"}).then(function (user) {
-					location.reload()				
-            })
-
-		}
-        getNFTBalances = async () => {
-            // get NFTs for current user on Mainnet
-            const options = { chain: 'bsc testnet'};
-            const usernfts = await Moralis.Web3.getNFTs(options);
-			const userhavenft = usernfts.find(find0xc2605c9ce7b15cc548054c2b2f4d6195ec6ac8a3)
-			
-			function find0xc2605c9ce7b15cc548054c2b2f4d6195ec6ac8a3(usernfts){
-				return usernfts.token_address  == 0xc2605c9ce7b15cc548054c2b2f4d6195ec6ac8a3
-			}
-			console.log(userhavenft.token_address);
-			const result = userhavenft.token_address;
-			function testresult(){
-				if (result == 0xc2605c9ce7b15cc548054c2b2f4d6195ec6ac8a3){
-					console.log(result);
-				}
-			}
-			testresult()
-			
-		}
-			
-        getNFTBalances();
 
 		if (($(document).width() / $(document).height()) < (16 / 9)) {
 			$('video').css({
@@ -187,7 +152,7 @@
 				web3: null,
 
 				account: null,
-				ftlDecimals: 9,
+				tokenDecimals: 9,
 				amountToDeposit: '',
 
 				busd: {
@@ -201,9 +166,9 @@
 
 
 				presale: {
-					address: '0x6C848f65C37b55d63EA69092463Cf0f90f746f3F',
+					address: '0x93bb385829CD8161824Fd870A6C564E2649D0104',
 					contract: null,
-					abi: [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"inputs":[],"name":"FTL","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"MAX_PRESALE_PER_ACCOUNT","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"MAX_SOLD","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"MIN_PRESALE_PER_ACCOUNT","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"PRICE","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"activatePrivateSale","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"buyer","type":"address"}],"name":"amountBuyable","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"newBuyer_","type":"address"}],"name":"approveBuyer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address[]","name":"newBuyers_","type":"address[]"}],"name":"approveBuyers","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"approvedBuyers","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"buyFTL","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"claimFTL","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"claimed","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"deactivatePrivateSale","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newBuyer_","type":"address"}],"name":"deapproveBuyer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"dev","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"invested","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"ftl","type":"address"}],"name":"setClaimingActive","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_soldAmount","type":"uint256"}],"name":"setSold","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"sold","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_token","type":"address"}],"name":"withdraw","outputs":[],"stateMutability":"nonpayable","type":"function"}],
+					abi: [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"inputs":[],"name":"TOKEN","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"MAX_PRESALE_PER_ACCOUNT","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"MAX_SOLD","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"MIN_PRESALE_PER_ACCOUNT","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"PRICE","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"activatePrivateSale","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"buyer","type":"address"}],"name":"amountBuyable","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"newBuyer_","type":"address"}],"name":"approveBuyer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address[]","name":"newBuyers_","type":"address[]"}],"name":"approveBuyers","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"approvedBuyers","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"buyTOKEN","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"claimTOKEN","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"claimed","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"deactivatePrivateSale","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newBuyer_","type":"address"}],"name":"deapproveBuyer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"dev","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"invested","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"}],"name":"setClaimingActive","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_soldAmount","type":"uint256"}],"name":"setSold","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"sold","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_token","type":"address"}],"name":"withdraw","outputs":[],"stateMutability":"nonpayable","type":"function"}],
 				},
 				//
 				maxUint: null,
@@ -223,11 +188,10 @@
 					return Math.round(this.currentMaxPerAccount * 100) / 100
 				},
 				currentMaxPerAccount () {
-					if (result == 0xc2605c9ce7b15cc548054c2b2f4d6195ec6ac8a3){
 					const price = this.toBN(this.presale.price)
 					const max = this.toBN(this.presale.maxPreSalePerAccount)
 
-					const ftlPow = this.toBN(10).pow(this.toBN(this.ftlDecimals))
+					const tokenPow = this.toBN(10).pow(this.toBN(this.tokenDecimals))
 					const busdPow = this.toBN(10).pow(this.toBN(this.busd.decimals))
 
 					const amountFtlBuyable = this.presale.amountBuyable
@@ -235,33 +199,12 @@
 					if (amountFtlBuyable == 0) {
 						amountBusdDepositable = 0;
 					} else {
-						amountBusdDepositable = this.toBN(amountFtlBuyable).times(price).div(busdPow.div(ftlPow)).toNumber()
+						amountBusdDepositable = this.toBN(amountFtlBuyable).times(price).div(busdPow.div(tokenPow)).toNumber()
 					}
 
 					return amountBusdDepositable;
 
-					return max.times(price).div(busdPow.div(ftlPow)).toNumber()
-				}
-				else if (result == 0xc2605c9ce7b15cc548054c2b2f4d6195ec6ac8a3){
-					const price = this.toBN(this.presale.price)
-					const max = this.toBN(this.presale.maxPreSalePerAccount)
-
-					const ftlPow = this.toBN(10).pow(this.toBN(this.ftlDecimals))
-					const busdPow = this.toBN(10).pow(this.toBN(this.busd.decimals))
-
-					const amountFtlBuyable = this.presale.amountBuyable
-					let amountBusdDepositable = 0
-					if (amountFtlBuyable == 0) {
-						amountBusdDepositable = 0;
-					} else {
-						amountBusdDepositable = this.toBN(amountFtlBuyable).times(price).div(busdPow.div(ftlPow)).toNumber()
-					}
-
-					return amountBusdDepositable;
-
-					return max.times(price).div(busdPow.div(ftlPow)).toNumber()
-
-				}
+					return max.times(price).div(busdPow.div(tokenPow)).toNumber()
 				},
 				tinyAccount () {
 					if ( ! this.account) {
@@ -350,7 +293,7 @@
 				},
 				async fetchSold () {
 					this.presale.contract.methods.sold().call().then((sold) => {
-						Vue.set(this.presale, 'sold', parseFloat(this.applyDecimals(sold, this.ftlDecimals)))
+						Vue.set(this.presale, 'sold', parseFloat(this.applyDecimals(sold, this.tokenDecimals)))
 					})
 				},
 				async fetchSaleInfos () {
@@ -358,19 +301,19 @@
 						Promise.all([
 							this.presale.contract.methods.PRICE().call(),
 							this.presale.contract.methods.MAX_PRESALE_PER_ACCOUNT().call().then((val) => {
-								return parseFloat(this.applyDecimals(val, this.ftlDecimals))
+								return parseFloat(this.applyDecimals(val, this.tokenDecimals))
 							}),
 							this.presale.contract.methods.amountBuyable(this.account).call().then((val) => {
-								return parseFloat(this.applyDecimals(val, this.ftlDecimals))
+								return parseFloat(this.applyDecimals(val, this.tokenDecimals))
 							}),
 							this.presale.contract.methods.approvedBuyers(this.account).call(),
 							this.presale.contract.methods.MAX_SOLD().call().then((maxSold) => {
-								return parseFloat(this.applyDecimals(maxSold, this.ftlDecimals))
+								return parseFloat(this.applyDecimals(maxSold, this.tokenDecimals))
 							}),
 							this.presale.contract.methods.sold().call().then((sold) => {
-								return parseFloat(this.applyDecimals(sold, this.ftlDecimals))
+								return parseFloat(this.applyDecimals(sold, this.tokenDecimals))
 							}),
-							this.presale.contract.methods.FTL().call(),
+							this.presale.contract.methods.TOKEN().call(),
 						]).then((infos) => {
 							Vue.set(this.presale, 'price', infos[0])
 							Vue.set(this.presale, 'maxPreSalePerAccount', infos[1])
@@ -378,13 +321,13 @@
 							Vue.set(this.presale, 'isWhitelisted', infos[3])
 							Vue.set(this.presale, 'maxSold', infos[4])
 							Vue.set(this.presale, 'sold', infos[5])
-							Vue.set(this.presale, 'ftlAddress', infos[6])
+							Vue.set(this.presale, 'tokenAddress', infos[6])
 							resolve()
 						})
 					})
 				},
 				async fetchAllowance () {
-					const buyableFtl = this.toBN(this.removeDecimals(this.presale.amountBuyable, this.ftlDecimals))
+					const buyableFtl = this.toBN(this.removeDecimals(this.presale.amountBuyable, this.tokenDecimals))
 					const mustBeApproved = buyableFtl.times(this.presale.price)
 					const approved = await this.busd.contract.methods.allowance(this.account, this.presale.address).call()
 					this.busd.approved = this.toBN(approved).gte(mustBeApproved)
@@ -397,7 +340,7 @@
 					const oldValue = await this.presale.contract.methods.invested(this.account).call()
 					const newValue = await this.presale.contract.methods.invested(this.account).call()
 					const value = Math.max(oldValue, newValue);
-					Vue.set(this.presale, 'deposited', this.applyDecimals(value, this.ftlDecimals))
+					Vue.set(this.presale, 'deposited', this.applyDecimals(value, this.tokenDecimals))
 				},
 				toBN (val) {
 					return new BigNumber(val)
@@ -413,7 +356,7 @@
 					return new BigNumber(val).div(new BigNumber(10).pow(new BigNumber(decimals))).toString()
 				},
 				async approve () {
-					const maxFtl = this.toBN(this.removeDecimals(this.presale.maxPreSalePerAccount, this.ftlDecimals))
+					const maxFtl = this.toBN(this.removeDecimals(this.presale.maxPreSalePerAccount, this.tokenDecimals))
 					const busdAmount = maxFtl.times(this.presale.price).toFixed(0)
 
 					this.sendTx({
@@ -435,19 +378,19 @@
 				},
 				async deposit () {
 					const busdToDeposit = this.toBN(this.removeDecimals(this.amountToDeposit, this.busd.decimals))
-					const ftlToDeposit = busdToDeposit.div(this.toBN(this.presale.price)).toFixed(0)
-					const ftlToDepositReadable = this.applyDecimals(ftlToDeposit, this.ftlDecimals)
+					const tokenToDeposit = busdToDeposit.div(this.toBN(this.presale.price)).toFixed(0)
+					const tokenToDepositReadable = this.applyDecimals(tokenToDeposit, this.tokenDecimals)
 
 					this.sendTx({
 						to: this.presale.address,
 						data: this.web3.eth.abi.encodeFunctionCall({
-							name: 'buyFTL',
+							name: 'buyTOKEN',
 							type: 'function',
 							inputs: [{
 								type: 'uint256',
 								name: 'amount'
 							}]
-						}, [ftlToDeposit])
+						}, [tokenToDeposit])
 					}).then(() => {
 						this.amountToDeposit = ''
 					})
@@ -455,7 +398,7 @@
 				async claim () {
 					this.sendTx({
 						to: this.presale.address,
-						data: this.web3.eth.abi.encodeFunctionSignature('claimFTL()')
+						data: this.web3.eth.abi.encodeFunctionSignature('claimTOKEN()')
 					}).then(() => {
 						this.fetchDeposited()
 					})
